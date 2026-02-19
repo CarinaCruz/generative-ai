@@ -6,7 +6,10 @@ from langchain_core.documents import Document
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from config import settings
+import logging
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("book-rag-agent")
 
 class RAGSystem:
     """
@@ -97,7 +100,8 @@ class RAGSystem:
             self.vectorstore = Chroma(
                 persist_directory=self.persist_dir,
                 embedding_function=self.embeddings
-            )            
+            )
+            return self.vectorstore
 
         df = self.load_data(settings.DATA_PATH)
         documents = self.create_documents(df)
@@ -126,10 +130,38 @@ class RAGSystem:
     # ------------------------------------------------------------------
     # Retrieval
     # ------------------------------------------------------------------
-    def search_books(self, query: str, k: int = 5):
+    def retrieve(self, query: str, k: int = 5):
         if not self.vectorstore:
             raise RuntimeError(
                 "Vectorstore not initialized. Call initialize_vectorstore first."
             )
 
-        return self.vectorstore.similarity_search(query, k=k)
+        return self.vectorstore.similarity_search_with_score(query, k=k)
+
+    def get_similar_books(self, query: str, k: int = 5):
+        similar_books = self.retrieve(query, k=k)
+        
+        # Prepare book information
+        books_info = []
+        for book, score in similar_books:
+            similarity = 1 - score
+            logger.info(f"Book {book.metadata.get('title', 'Unknown')} = {similarity}")
+            if similarity >= settings.COSINE_SIMILARITY:
+                books_info.append({
+                    'title': book.metadata.get('title', 'Unknown'),
+                    'author': book.metadata.get('authors', 'Unknown'),
+                    'rating': book.metadata.get('rating', 0),
+                    'language': book.metadata.get('language', 'Unknown')
+                })
+
+        # Format books list for prompt
+        if len(books_info) > 0:
+            books_formatted = [
+                f"{i}. {book['title']} by {book['author']} (Rating: {book['rating']}/5, Language: {book['language']})"
+                for i, book in enumerate(books_info, 1)
+            ]
+            books_list_str = "\n".join(books_formatted)
+        else:
+            books_list_str = "I couldn't find any books matching your query"      
+
+        return books_list_str
