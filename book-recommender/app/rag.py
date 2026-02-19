@@ -114,8 +114,7 @@ class RAGSystem:
             embedding=self.embeddings,
             persist_directory=self.persist_dir
         )
-
-        self.vectorstore.persist()
+        
         self.logger.info("Vectorstore created and persisted.")
 
         return self.vectorstore
