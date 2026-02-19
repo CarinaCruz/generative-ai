@@ -1,11 +1,10 @@
-*.csv
 *.parquet
 *.xml
 0_*
 1_*
 rag_books_gemini*
 .env
-data
+data/raw/*
 chroma*
 notebooks
 rag

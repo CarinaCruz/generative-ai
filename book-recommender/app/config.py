@@ -23,7 +23,8 @@ keywords = {
             "personal_data": ["cpf", "rg", "dados pessoais"],
             "database_extraction": [
                 "all data", "all database", "show me all", "full database",
-                "entire database", "dump database"
+                "entire database", "dump database", "give database", "give me database",
+                "give me all the database"
             ],
             "danger": ["kill", "murder", "suicide", "cocaine", "drugs"],
 
