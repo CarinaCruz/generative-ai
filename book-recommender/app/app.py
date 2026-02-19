@@ -126,7 +126,7 @@ def root():
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <title>Book Recommendation RAG</title>
+    <title>Books Recommendation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <style>
         body {
@@ -189,7 +189,7 @@ def root():
 </head>
 <body>
     <div class="container">
-        <h1>📚 Book Recommendation RAG</h1>
+        <h1>📚 Books Recommendation</h1>
         <p>Ask questions about books using semantic search.</p>
 
         <textarea id="question" placeholder="E.g. Suggest books about horror..."></textarea>
