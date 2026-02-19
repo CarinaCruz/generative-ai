@@ -5,7 +5,7 @@ google-ai-generativelanguage==0.6.18
 google-api-core==2.28.1
 google-auth==2.47.0
 googleapis-common-protos==1.72.0
-huggingface-hub==0.36.0
+huggingface-hub==1.4.1
 kagglehub==0.3.12
 langchain==0.3.27
 langchain-chroma==0.2.4
@@ -19,3 +19,4 @@ langgraph-checkpoint==2.1.2
 langgraph-prebuilt==0.6.5
 langgraph-sdk==0.2.15
 langsmith==0.6.1
+sentence-transformers==5.2.3
