@@ -13,7 +13,7 @@ An intelligent book recommendation system powered by Retrieval-Augmented Generat
 
 ⚡ **Fast & Scalable**: Built with FastAPI and optimized vector databases
 
-🐳 **Docker Ready**: Containerized for easy deployment
+🐳 **Docker Ready**: Containerized for easy deployment (In progress)
 
 
 #### 🚀 Quick Start
@@ -27,6 +27,19 @@ Virtual env:
  - pip install --upgrade pip
  - pip install -r requirements.txt
 
+ To execute the book recommender api:
+
+ - uvicorn app:app --reload
+
+Dataset:
+
+ - zygmunt/goodbooks-10k from kaggle stored data/books.csv 
+
+
 Python 3.9+
 
 Google Gemini API Key
+
+System interface
+
+![alt text](image.png)

@@ -1,9 +1,8 @@
 import re
-
-import re
+import config
 from dataclasses import dataclass
 from typing import Optional
-import config
+
 
 @dataclass
 class GuardrailResult:

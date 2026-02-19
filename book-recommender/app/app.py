@@ -45,13 +45,9 @@ async def lifespan(app: FastAPI):
         agent = BookRecommendationAgent(rag_system, llm_provider)
 
         logger.info("Loading data and initializing vectorstore...")
-        df = rag_system.load_data("../data/raw/books.csv")
-        documents = rag_system.create_documents(df)
         rag_system.initialize_vectorstore(
-            documents=documents,
             force_recreate=False
         )
-
         state.rag_system = rag_system
         state.agent = agent
 
@@ -64,7 +60,6 @@ async def lifespan(app: FastAPI):
 
     finally:
         logger.info("Shutting down Book Recommendation API...")
-        # aqui você poderia fechar conexões se existissem
 
 
 # --------------------------------------------------
