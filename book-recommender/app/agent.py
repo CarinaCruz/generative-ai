@@ -9,30 +9,13 @@ class BookRecommendationAgent:
 
     def ask(self, question: str, k: int = 5):
         # Search for similar books
-        similar_books = self.rag_system.search_books(question, k=k)
+        similar_books = self.rag_system.get_similar_books(question, k=k)
 
         if not similar_books:
             return "I couldn't find any books matching your query. Please try with different keywords."
 
-        # Prepare book information
-        books_info = []
-        for i, book in enumerate(similar_books, 1):
-            books_info.append({
-                'title': book.metadata.get('title', 'Unknown'),
-                'author': book.metadata.get('authors', 'Unknown'),
-                'rating': book.metadata.get('rating', 0),
-                'language': book.metadata.get('language', 'Unknown')
-            })
-
-        # Format books list for prompt
-        books_formatted = [
-            f"{i}. {book['title']} by {book['author']} (Rating: {book['rating']}/5, Language: {book['language']})"
-            for i, book in enumerate(books_info, 1)
-        ]
-        books_list_str = "\n".join(books_formatted)
-
         # Generate response
-        prompt = self.prompt_template.format(books_list=books_list_str, question=question)
+        prompt = self.prompt_template.format(books_list=similar_books, question=question)
         response = self.llm_provider.llm.invoke(prompt)
 
         return response.content
