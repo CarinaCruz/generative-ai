@@ -20,7 +20,7 @@ An intelligent book recommendation system powered by Retrieval-Augmented Generat
 
 Prerequisites:
 
-Virtual env:
+**Virtual env**
 
  - python3 -m venv .venv
  - source .venv/bin/activate
@@ -31,14 +31,17 @@ Virtual env:
 
  - uvicorn app:app --reload
 
-Dataset:
+**Dataset**
 
  - zygmunt/goodbooks-10k from kaggle stored data/books.csv 
 
+**API Key**
 
-Python 3.9+
+ - You should cread an .env and store your Google Gemini API Key as `GEMINI_API_KEY`
 
-Google Gemini API Key
+**Python**
+
+ - 3.9+
 
 System interface
 
