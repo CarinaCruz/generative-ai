@@ -97,8 +97,7 @@ class RAGSystem:
             self.vectorstore = Chroma(
                 persist_directory=self.persist_dir,
                 embedding_function=self.embeddings
-            )
-            return self.vectorstore
+            )            
 
         df = self.load_data(settings.DATA_PATH)
         documents = self.create_documents(df)
