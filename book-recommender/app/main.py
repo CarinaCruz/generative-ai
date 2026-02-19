@@ -34,23 +34,10 @@ def get_rag():
     return rag 
 
 
-def initialize_app():
-    logger.info("Initializing RAG system...")
-
+def initialize_app():    
     rag_system = get_rag()
     llm_provider = LLMProvider()
     agent = BookRecommendationAgent(rag_system, llm_provider)
-
-    try:
-        logger.info("Loading data and initializing vectorstore...")
-        df = rag_system.load_data("../data/raw/books.csv")
-        documents = rag_system.create_documents(df)
-        rag_system.initialize_vectorstore(documents, force_recreate=False)
-        logger.info("Vectorstore initialized successfully.")
-    except Exception as e:
-        logger.error(f"Failed to initialize vectorstore: {e}")
-        sys.exit(1)
-
     return agent
 
 def run_cli(agent: BookRecommendationAgent):
