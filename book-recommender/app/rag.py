@@ -25,9 +25,8 @@ class RAGSystem:
 
         self.persist_dir = settings.CHROMA_PERSIST_DIR
         self.embedding_model = settings.EMBEDDING_MODEL
-
         self.embeddings = self._load_embeddings()
-        self.vectorstore: Chroma | None = None
+        self.vectorstore: None
 
     # ------------------------------------------------------------------
     # Embeddings
