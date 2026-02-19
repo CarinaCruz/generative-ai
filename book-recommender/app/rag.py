@@ -2,12 +2,9 @@ import os
 import shutil
 import logging
 import pandas as pd
-
 from langchain_core.documents import Document
-
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
-
 from config import settings
 
 
@@ -83,7 +80,6 @@ class RAGSystem:
 
     def initialize_vectorstore(
         self,
-        documents: list[Document] = None,
         force_recreate: bool = False
     ) -> Chroma:
         """
@@ -104,6 +100,9 @@ class RAGSystem:
             )
             return self.vectorstore
 
+        df = self.load_data(settings.DATA_PATH)
+        documents = self.create_documents(df)
+        
         if documents is None:
             raise ValueError(
                 "Documents must be provided when creating a new vectorstore."
