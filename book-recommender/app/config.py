@@ -13,6 +13,7 @@ class Settings:
     DATA_PATH = os.getenv("DATA_PATH", "../data/books.csv")
     MAIN_COLUMNS = ["authors", "original_title", "average_rating", "language_code"]
     TITLE_COLUMN_NAME = "original_title"
+    COSINE_SIMILARITY = 0.3
 
 settings = Settings()
 
