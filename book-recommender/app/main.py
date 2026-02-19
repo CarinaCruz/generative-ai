@@ -24,15 +24,8 @@ logger = logging.getLogger(__name__)
 # --------------------------------------------------
 def get_rag():
     rag = RAGSystem()
-
-    if not rag.vectorstore_exists():
-        df = rag.load_data("data/raw/books.csv")
-        docs = rag.create_documents(df)
-        rag.initialize_vectorstore(docs)
-    else:
-        rag.initialize_vectorstore()
+    rag.initialize_vectorstore()
     return rag 
-
 
 def initialize_app():    
     rag_system = get_rag()
