@@ -4,7 +4,6 @@ An intelligent book recommendation system powered by Retrieval-Augmented Generat
 
 #### ✨ Features
 
-
 🔍 **Intelligent Search**: Semantic search across book titles, authors, and metadata using vector embeddings
 
 🤖 **AI-Powered Recommendations**: LLM-generated personalized recommendations with reasoning
@@ -13,36 +12,68 @@ An intelligent book recommendation system powered by Retrieval-Augmented Generat
 
 ⚡ **Fast & Scalable**: Built with FastAPI and optimized vector databases
 
-🐳 **Docker Ready**: Containerized for easy deployment (In progress)
+🐳 **Docker Ready**: Containerized for easy deployment (see Docker section)
 
 
-#### 🚀 Quick Start
+#### 🚀 Quick Start (Local development)
 
 Prerequisites:
 
-**Virtual env**
+- Python 3.9+
+- (Optional) A virtual environment
 
- - python3 -m venv .venv
- - source .venv/bin/activate
- - pip install --upgrade pip
- - pip install -r requirements.txt
+Local dev steps:
 
- To execute the book recommender api:
+- python3 -m venv .venv
+- source .venv/bin/activate
+- pip install --upgrade pip
+- pip install -r requirements.txt
 
- - uvicorn app:app --reload
+Run the API locally:
 
-**Dataset**
+- uvicorn app:app --reload
 
- - zygmunt/goodbooks-10k from kaggle stored data/books.csv 
 
-**API Key**
+#### Environment
 
- - You should cread an .env and store your Google Gemini API Key as `GEMINI_API_KEY`
+Create a `.env` file in project root and provide your sensitive keys. At minimum set:
 
-**Python**
+- GEMINI_API_KEY=<your_google_gemini_api_key>
 
- - 3.9+
+The project reads environment variables from `.env` when using Docker Compose.
 
-System interface
+
+#### Docker (recommended for deployment)
+
+The repository includes a `Dockerfile` and `docker-compose.yml` to build and run the service.
+
+Build and run with Docker Compose (recommended):
+
+- docker compose up --build -d
+- docker compose logs web
+- docker compose down 
+- web browser: http://localhost:8000/
+
+Build and run the image manually:
+
+- docker build -t book-recommender:latest .
+- docker run --env-file .env -p 8000:8000 -v "$(pwd)/data:/app/data" -v "$(pwd)/vdb:/app/vdb" --rm book-recommender:latest
+
+Notes:
+
+- The Compose file maps host port `8000` to container port `8000`.
+- Volumes: `./data` and `./vdb` are mounted into `/app/data` and `/app/vdb` so the vectorstore and dataset persist outside the container.
+- A healthcheck is configured for the service and probes the root endpoint.
+- Use `.dockerignore` to keep large or sensitive files out of the image (the repo includes one).
+
+
+#### Dataset
+
+- zygmunt/goodbooks-10k from Kaggle — expected at `data/books.csv`
+
+#### API Key
+
+- Store your Google Gemini API Key in `.env` as `GEMINI_API_KEY`.
+
 
 ![alt text](image.png)

@@ -103,7 +103,7 @@ class RAGSystem:
             )
             return self.vectorstore
 
-        df = self.load_data(settings.DATA_PATH)
+        df = self.load_data(settings.LOCAL_DATA_PATH)
         documents = self.create_documents(df)
         
         if documents is None:

@@ -8,6 +8,7 @@ data/raw/*
 chroma*
 notebooks
 rag
+vdb
 visualization
 research
 .venv

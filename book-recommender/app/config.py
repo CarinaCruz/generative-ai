@@ -9,8 +9,9 @@ class Settings:
     EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
     LLM_MODEL = os.getenv("LLM_MODEL", "gemini-2.5-flash")
     LLM_TEMPERATURE = float(os.getenv("LLM_TEMPERATURE", 0.7))
-    CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", "../rag")
-    DATA_PATH = os.getenv("DATA_PATH", "../data/books.csv")
+    CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", "../vdb")
+    DATA_PATH = os.getenv("DATA_PATH", "./data/raw/books.csv")
+    LOCAL_DATA_PATH = os.getenv("LOCAL_DATA_PATH", "../data/raw/books.csv")
     MAIN_COLUMNS = ["authors", "original_title", "average_rating", "language_code"]
     TITLE_COLUMN_NAME = "original_title"
     COSINE_SIMILARITY = 0.3
