@@ -4,7 +4,11 @@
 1_*
 rag_books_gemini*
 .env
-data/raw/*
+data/raw/7k_books.csv
+data/raw/book_tags.csv
+data/raw/ratings.csv
+data/raw/tags.csv
+data/raw/to_read.csv
 chroma*
 notebooks
 rag
