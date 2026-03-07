@@ -69,7 +69,7 @@ Notes:
 
 #### Dataset
 
-- zygmunt/goodbooks-10k from Kaggle — expected at `data/books.csv`
+- zygmunt/goodbooks-10k from Kaggle — cleaned and stored at `data/books.csv`
 
 #### API Key
 
