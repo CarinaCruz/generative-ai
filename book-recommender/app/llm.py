@@ -14,6 +14,10 @@ class LLMProvider:
     def get_llm(self):
         return self.llm
 
+    @property
+    def model_name(self):
+        return getattr(self.llm, "model", settings.LLM_MODEL)
+
     @staticmethod
     def create_prompt_template():
         return PromptTemplate(template=SIMPLE_AGENT_BOOK,

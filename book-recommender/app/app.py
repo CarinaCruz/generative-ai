@@ -18,7 +18,7 @@ load_dotenv()
 os.environ["GOOGLE_API_KEY"] = os.getenv("GEMINI_API_KEY")
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("book-rag-api")
+logger = logging.getLogger("app")
 
 guardrails = SecurityGuardrails()
 

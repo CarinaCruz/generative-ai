@@ -43,6 +43,36 @@ Create a `.env` file in project root and provide your sensitive keys. At minimum
 The project reads environment variables from `.env` when using Docker Compose.
 
 
+#### Observability (MLflow)
+
+This project now includes optional observability using MLflow. The application logs interactions and retriever traces to an MLflow tracking server when the following environment variables are provided:
+
+- `MLFLOW_TRACKING_URI` — URL for the MLflow tracking server (e.g. `http ://mlflow:5000` when using Docker Compose)
+- `MLFLOW_EXPERIMENT` — name of the MLflow experiment (defaults to `book-recommender`)
+- `MLFLOW_ARTIFACT_ROOT` — optional artifact root (container-compose maps `./mlflow` to `/mlflow`)
+
+When enabled, the app creates nested runs for each interaction and stores prompt/response artifacts and basic metrics (latency, lengths, etc.).
+
+You can run MLflow locally using the included `docker-compose.yml` (the compose file defines a `mlflow` service), which exposes the MLflow UI at `http ://localhost:5000` and persists artifacts to `./mlflow` on the host.
+
+To run with MLflow via Docker Compose:
+
+- docker compose up --build -d
+- open http ://localhost:8000 for the API UI
+- open http ://localhost:5000 for the MLflow UI
+
+Alternatively you can start a local MLflow server without Docker:
+
+- pip install mlflow sqlalchemy
+- mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./mlflow/artifacts --host 0.0.0.0 --port 5000
+- export MLFLOW_TRACKING_URI=http\://localhost:5000
+- export MLFLOW_EXPERIMENT=book-recommender
+
+Notes:
+- The Dockerfile contains a multi-stage build that includes a `mlflow-server` target used by the Compose file.
+- Artifacts and the MLflow SQLite DB are stored under `./mlflow` when using the provided compose setup.
+
+
 #### Docker (recommended for deployment)
 
 The repository includes a `Dockerfile` and `docker-compose.yml` to build and run the service.
@@ -52,7 +82,7 @@ Build and run with Docker Compose (recommended):
 - docker compose up --build -d
 - docker compose logs web
 - docker compose down 
-- web browser: http://localhost:8000/
+- web browser: http ://localhost:8000/
 
 Build and run the image manually:
 
@@ -65,6 +95,11 @@ Notes:
 - Volumes: `./data` and `./vdb` are mounted into `/app/data` and `/app/vdb` so the vectorstore and dataset persist outside the container.
 - A healthcheck is configured for the service and probes the root endpoint.
 - Use `.dockerignore` to keep large or sensitive files out of the image (the repo includes one).
+
+
+#### Requirements changes
+
+Observability and the MLflow server require additional packages. The `requirements.txt` was updated to include `mlflow` and `sqlalchemy` for the MLflow server support. Ensure these are installed when running MLflow locally.
 
 
 #### Dataset

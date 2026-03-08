@@ -17,3 +17,4 @@ visualization
 research
 .venv
 __pycache__
+mlflow

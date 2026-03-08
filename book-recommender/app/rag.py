@@ -7,7 +7,7 @@ from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from config import settings
 import logging
-
+import mlflow 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("book-rag-agent")
 
@@ -102,8 +102,8 @@ class RAGSystem:
                 embedding_function=self.embeddings
             )
             return self.vectorstore
-
-        df = self.load_data(settings.LOCAL_DATA_PATH)
+        data_path = settings.DATA_PATH or settings.LOCAL_DATA_PATH
+        df = self.load_data(data_path)
         documents = self.create_documents(df)
         
         if documents is None:
@@ -130,6 +130,7 @@ class RAGSystem:
     # ------------------------------------------------------------------
     # Retrieval
     # ------------------------------------------------------------------
+    @mlflow.trace(name="document_retriever", span_type="RETRIEVER")
     def retrieve(self, query: str, k: int = 5):
         if not self.vectorstore:
             raise RuntimeError(

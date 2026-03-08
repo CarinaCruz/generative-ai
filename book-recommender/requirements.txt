@@ -21,3 +21,4 @@ langgraph-sdk==0.2.15
 langsmith==0.6.1
 sentence-transformers==5.2.3
 mlflow==3.10.1
+sqlalchemy==2.0.28
