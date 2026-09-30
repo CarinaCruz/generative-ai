@@ -4,16 +4,26 @@ An intelligent book recommendation system powered by Retrieval-Augmented Generat
 
 #### ✨ Features
 
-🔍 **Intelligent Search**: Semantic search across book titles, authors, and metadata using vector embeddings
+* **Intelligent Search**: Semantic search across book titles, authors, and metadata using vector embeddings
+* **AI-Powered Recommendations**: LLM-generated personalized recommendations with reasoning
+* **Data-Driven**: Based on real book ratings, genres, and descriptions
+* **Fast & Scalable**: Built with FastAPI and optimized vector databases
+* **Docker Ready**: Containerized for easy deployment (see Docker section)
 
-🤖 **AI-Powered Recommendations**: LLM-generated personalized recommendations with reasoning
+#### ✨ Key Engineering Features
 
-📊 **Data-Driven**: Based on real book ratings, genres, and descriptions
+* **Production-Ready Architecture**: Built with a high-performance asynchronous **FastAPI** backend and containerized via **Docker/Docker Compose** for seamless orchestration.
+* **State-of-the-Art LLM Integration**: Powered by **Google Gemini** for semantic reasoning and dynamic recommendation synthesis.
+* **Robust Data Persistence**: Features volume mounting (`./data` and `./vdb`) to guarantee persistence of the vectorized knowledge base and Kaggle's *goodbooks-10k* dataset across container lifecycles.
 
-⚡ **Fast & Scalable**: Built with FastAPI and optimized vector databases
+#### 🛠️ Enterprise Tech Stack
 
-🐳 **Docker Ready**: Containerized for easy deployment (see Docker section)
-
+* **Language:** Python 3.9+
+* **LLM Orchestration:** Google Gemini API
+* **API Framework:** FastAPI & Uvicorn (Asynchronous endpoints)
+* **DevOps & MLOps:** Docker, Docker Compose, Volume Mapping, Healthcheck Probes
+* **Data Layer:** Pandas & VectorStore (Local persistence)
+ 
 
 #### 🚀 Quick Start (Local development)
 
